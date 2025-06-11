@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Start";
+}
+<div class="container pt-4">
+    <h1>Cookie test site</h1>
+    <div class="d-flex flex-column gap-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>User</h3>
+                @if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <div class="alert alert-success">You are signed in</div>
+                    <p>
+                        You are signed in with a session cookie. In the table bellow are your claims.
+                        To sign out use the button bellow or visit <a href="/user/sign-out">/user/sign-out</a>
+                    </p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Claim</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var claim in User.Claims)
+                            {
+                                <tr>
+                                    <td>@claim.Type</td>
+                                    <td>@claim.Value</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary" href="/user/sign-out">Sign out</a>
+                }
+                else
+                {
+                    <div class="alert alert-info">You are not signed in, visit <a href="/user/login/my-username?role=user">/user/login/my-username?role=user</a> to sign in</div>
+                }
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h3>How to sign in</h3>
+                <p>Sign in via url <code>/user/login/{username}</code>. Add aditional claims with query parameters in the url: <code>/user/login/{username}?role=my-role</code>.</p>
+            </div>
+        </div>
+    
+    </div>
+
+
+</div>
